@@ -1,0 +1,35 @@
+server:
+  port: 8089
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 123456
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+#      data-locations: classpath:data.sql
+  web:
+    resources:
+      static-locations: classpath:templates
+  mvc:
+    static-path-pattern: /**
+
+
+fdfs:
+  web-server-url: 121.201.93.46:8888/
+  tracker-list[0]: 121.201.93.46:22122
+  so-timeout: 300000
+  connect-timeout: 60000
+  thumb-image:
+    width: 150
+    height: 150
