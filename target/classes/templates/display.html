@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>展示DEMO</title>
+    <script src="./jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+<div class="cont_box">
+    <div class="face">
+        <h2 class="title">人脸抓拍</h2>
+        <!-- <div class="face_list"></div> -->
+    </div>
+    <div class="walk">
+        <h2 class="title">行人抓拍</h2>
+        <!-- <div class="walk_list"></div> -->
+    </div>
+    <div class="car">
+        <h2 class="title">机动车抓拍</h2>
+        <!-- <div class="car_list"></div> -->
+    </div>
+    <div class="no_car">
+        <h2 class="title">非机动车抓拍</h2>
+        <!-- <div class="no_car_list"></div> -->
+    </div>
+</div>
+<script>
+    $(function () {
+        // 人脸
+        $.get('/faceInfo/faceInfoAll', res => {
+            if (res.code == 200 && res.data) {
+                res.data = res.data.slice(0, 8);
+                $('.face').append('<div class="face_list"></div>');
+                let face_list = $('.face_list');
+                res.data.forEach(v => {
+                    face_list.append(
+                        `
+                            <div class="face_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.KEY_DIAGRAM}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="gender">性别: <i>${v.GENDER}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">年龄: <i>${v.AGE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">眼镜: <i>${v.GLASS}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">发型: <i>${v.HAIRSTYLE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">帽子: <i>${v.HAT}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">人种: <i>${v.RACE}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                    )
+                })
+            }
+        });
+        // 行人
+        $.get('/personInfo/personInfoAll', res => {
+            if (res.code == 200 && res.data) {
+                res.data = res.data.slice(0, 5);
+                $('.walk').append('<div class="walk_list"></div>');
+                let walk_list = $('.walk_list');
+                res.data.forEach(v => {
+                    walk_list.append(
+                        `
+                            <div class="walk_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.IMG}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="gender">性别: <i>${v.GENDER}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">年龄: <i>${v.AGE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">衣服纹理: <i>${v.CLOTHING_TEXTURE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣颜色: <i>${v.TOP_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣款色: <i>${v.TOP_STYLE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">下衣颜色: <i>${v.BOTTOM_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">下衣款色: <i>${v.BOTTOM_STYLE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">发型: <i>${v.HAIRSTYLE}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                    )
+                })
+            }
+        });
+        // 机动车
+        $.get('/carInfo/CarInfoAll', res => {
+            if (res.code == 200 && res.data) {
+                res.data = res.data.slice(0, 5);
+                $('.car').append('<div class="car_list"></div>');
+                let car_list = $('.car_list');
+                res.data.forEach(v => {
+                    car_list.append(
+                        `
+                            <div class="car_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.IMG}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="gender">颜色: <i>${v.COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车牌: <i>${v.PLATE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车辆类型: <i>${v.VEHICLE_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车辆用途: <i>${v.VEHICLE_FUNC_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车部分: <i>${v.PART}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">天窗: <i>${v.SUNROOF}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                    )
+                })
+            }
+        });
+        // 非机动车
+        $.get('/bycycleInfo/bycycleInfoAll', res => {
+            if (res.code == 200 && res.data) {
+                res.data = res.data.slice(0, 5);
+                $('.no_car').append('<div class="no_car_list"></div>');
+                let no_car_list = $('.no_car_list');
+                res.data.forEach(v => {
+                    no_car_list.append(
+                        `
+                            <div class="no_car_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.IMG}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="age">非机动车颜色: <i>${v.COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">非机动车类型: <i>${v.VEHICLE_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">两轮类型: <i>${v.BYC_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">三轮车类型: <i>${v.TRI_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">雨伞: <i>${v.UMBRELLA}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">乘客帽子: <i>${v.GUES_THAT}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">乘客帽子颜色: <i>${v.GUEST_HAT_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">衣服纹理: <i>${v.CLOTHING_TEXTURE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣颜色: <i>${v.TOP_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣款色: <i>${v.TOP_STYLE}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                    )
+                })
+            }
+        });
+
+        setInterval(() => {
+            $(".face_item_i").parent().remove();
+            $(".walk_item_i").parent().remove();
+            $(".car_item_i").parent().remove();
+            $(".no_car_item_i").parent().remove();
+            // 人脸
+            $.get('/faceInfo/faceInfoAll', res => {
+                if (res.code == 200 && res.data) {
+                    res.data = res.data.slice(0, 8);
+                    $('.face').append('<div class="face_list"></div>');
+                    let face_list = $('.face_list');
+                    res.data.forEach(v => {
+                        face_list.append(
+                            `
+                            <div class="face_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.KEY_DIAGRAM}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="gender">性别: <i>${v.GENDER}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">年龄: <i>${v.AGE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">眼镜: <i>${v.GLASS}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">发型: <i>${v.HAIRSTYLE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">帽子: <i>${v.HAT}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">人种: <i>${v.RACE}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        )
+                    })
+                }
+            });
+            // 行人
+            $.get('/personInfo/personInfoAll', res => {
+                if (res.code == 200 && res.data) {
+                    res.data = res.data.slice(0, 5);
+                    $('.walk').append('<div class="walk_list"></div>');
+                    let walk_list = $('.walk_list');
+                    res.data.forEach(v => {
+                        walk_list.append(
+                            `
+                            <div class="walk_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.IMG}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="gender">性别: <i>${v.GENDER}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">年龄: <i>${v.AGE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">衣服纹理: <i>${v.CLOTHING_TEXTURE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣颜色: <i>${v.TOP_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣款色: <i>${v.TOP_STYLE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">下衣颜色: <i>${v.BOTTOM_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">下衣款色: <i>${v.BOTTOM_STYLE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">发型: <i>${v.HAIRSTYLE}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        )
+                    })
+                }
+            });
+            // 机动车
+            $.get('/carInfo/CarInfoAll', res => {
+                if (res.code == 200 && res.data) {
+                    res.data = res.data.slice(0, 5);
+                    $('.car').append('<div class="car_list"></div>');
+                    let car_list = $('.car_list');
+                    res.data.forEach(v => {
+                        car_list.append(
+                            `
+                            <div class="car_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.IMG}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="gender">颜色: <i>${v.COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车牌: <i>${v.PLATE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车辆类型: <i>${v.VEHICLE_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车辆用途: <i>${v.VEHICLE_FUNC_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">车部分: <i>${v.PART}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">天窗: <i>${v.SUNROOF}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        )
+                    })
+                }
+            });
+            // 非机动车
+            $.get('/bycycleInfo/bycycleInfoAll', res => {
+                if (res.code == 200 && res.data) {
+                    res.data = res.data.slice(0, 5);
+                    $('.no_car').append('<div class="no_car_list"></div>');
+                    let no_car_list = $('.no_car_list');
+                    res.data.forEach(v => {
+                        no_car_list.append(
+                            `
+                            <div class="no_car_item_i">
+                                <div class="item_img_b">
+                                    <img src="${v.IMG}" alt="">
+                                </div>
+                                <div>
+                                    <div class="item_msg">
+                                        <span class="age">非机动车颜色: <i>${v.COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">非机动车类型: <i>${v.VEHICLE_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">两轮类型: <i>${v.BYC_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">三轮车类型: <i>${v.TRI_TYPE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">雨伞: <i>${v.UMBRELLA}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">乘客帽子: <i>${v.GUES_THAT}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">乘客帽子颜色: <i>${v.GUEST_HAT_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">衣服纹理: <i>${v.CLOTHING_TEXTURE}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣颜色: <i>${v.TOP_COLOR}</i></span>
+                                    </div>
+                                    <div class="item_msg">
+                                        <span class="age">上衣款色: <i>${v.TOP_STYLE}</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        )
+                    })
+                }
+            })
+        }, 30000)
+    })
+</script>
+</body>
+
+</html>

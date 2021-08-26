@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.cont_box {
+    padding: 10px 20px;
+}
+.title {
+    margin: 0 0 10px 10px;
+}
+.face_list,
+.walk_list,
+.car_list,
+.no_car_list {
+    display: flex;
+    margin-bottom: 20px;
+}
+.face_item_i {
+    width: 12.5%;
+    color: #4a4a4a;
+    margin: 0 5px;
+    padding: 10px;
+    border: 2px solid rgb(233, 233, 233);
+}
+.walk_item_i,
+.car_item_i,
+.no_car_item_i {
+    color: #4a4a4a;
+    width: 20%;
+    margin: 0 5px;
+    padding: 10px;
+    border: 2px solid rgb(233, 233, 233);
+}
+.item_img_b {
+    width: 100%;
+}
+.item_img_b > img {
+    width: 100%;
+    height: 100%;
+}
+.item_msg {
+    padding: 4px 0;
+}
+.gender ,
+.age {
+    font-weight: 600;
+}
+.gender > i,
+.age > i {
+    padding-left: 8px;
+    font-style: normal;
+}
