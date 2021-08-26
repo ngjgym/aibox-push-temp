@@ -32,7 +32,7 @@
 <script>
     $(function () {
         // 人脸
-        $.post('http://192.168.31.15:8089/faceInfoEntity/faceInfoAll', res => {
+        $.get('/faceInfo/faceInfoAll', res => {
             if (res.code == 200 && res.data) {
                 res.data = res.data.slice(0, 8);
                 $('.face').append('<div class="face_list"></div>');
@@ -71,7 +71,7 @@
             }
         });
         // 行人
-        $.post('http://192.168.31.15:8089/personInfoEntity/personInfoAll', res => {
+        $.get('/personInfo/personInfoAll', res => {
             if (res.code == 200 && res.data) {
                 res.data = res.data.slice(0, 5);
                 $('.walk').append('<div class="walk_list"></div>');
@@ -116,7 +116,7 @@
             }
         });
         // 机动车
-        $.post('http://192.168.31.15:8089/carInfoEntity/CarInfoAll', res => {
+        $.get('/carInfo/CarInfoAll', res => {
             if (res.code == 200 && res.data) {
                 res.data = res.data.slice(0, 5);
                 $('.car').append('<div class="car_list"></div>');
@@ -155,7 +155,7 @@
             }
         });
         // 非机动车
-        $.post('http://192.168.31.15:8089/bycycleInfoEntity/bycycleInfoAll', res => {
+        $.get('/bycycleInfo/bycycleInfoAll', res => {
             if (res.code == 200 && res.data) {
                 res.data = res.data.slice(0, 5);
                 $('.no_car').append('<div class="no_car_list"></div>');
@@ -212,7 +212,7 @@
             $(".car_item_i").parent().remove();
             $(".no_car_item_i").parent().remove();
             // 人脸
-            $.post('http://192.168.31.15:8089/faceInfoEntity/faceInfoAll', res => {
+            $.get('/faceInfo/faceInfoAll', res => {
                 if (res.code == 200 && res.data) {
                     res.data = res.data.slice(0, 8);
                     $('.face').append('<div class="face_list"></div>');
@@ -251,7 +251,7 @@
                 }
             });
             // 行人
-            $.post('http://192.168.31.15:8089/personInfoEntity/personInfoAll', res => {
+            $.get('/personInfo/personInfoAll', res => {
                 if (res.code == 200 && res.data) {
                     res.data = res.data.slice(0, 5);
                     $('.walk').append('<div class="walk_list"></div>');
@@ -296,7 +296,7 @@
                 }
             });
             // 机动车
-            $.post('http://192.168.31.15:8089/carInfoEntity/CarInfoAll', res => {
+            $.get('/carInfo/CarInfoAll', res => {
                 if (res.code == 200 && res.data) {
                     res.data = res.data.slice(0, 5);
                     $('.car').append('<div class="car_list"></div>');
@@ -335,7 +335,7 @@
                 }
             });
             // 非机动车
-            $.post('http://192.168.31.15:8089/bycycleInfoEntity/bycycleInfoAll', res => {
+            $.get('/bycycleInfo/bycycleInfoAll', res => {
                 if (res.code == 200 && res.data) {
                     res.data = res.data.slice(0, 5);
                     $('.no_car').append('<div class="no_car_list"></div>');

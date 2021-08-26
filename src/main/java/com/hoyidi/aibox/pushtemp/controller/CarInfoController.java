@@ -5,11 +5,7 @@ import com.hoyidi.aibox.pushtemp.pojo.entity.CarInfoEntity;
 import com.hoyidi.aibox.pushtemp.service.CarInfoService;
 import com.hoyidi.aibox.pushtemp.utils.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +20,7 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/carInfoEntity")
+@RequestMapping("/carInfo")
 public class CarInfoController {
 
     @Autowired
@@ -34,7 +30,7 @@ public class CarInfoController {
      * 查询所有的车辆抓拍数据
      * @return
      */
-    @PostMapping("/CarInfoAll")
+    @GetMapping("/CarInfoAll")
     public ResultMap CarInfoAll(){
         List<Map<String,Object>> carInfo=carInfoService.selCarAll();
         if (carInfo!=null){

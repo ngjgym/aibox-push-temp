@@ -1,3 +1,5 @@
+
+uploadPath: C:/upload
 server:
   port: 8089
 spring:
@@ -20,16 +22,7 @@ spring:
 #      data-locations: classpath:data.sql
   web:
     resources:
-      static-locations: classpath:templates
-  mvc:
-    static-path-pattern: /**
-
-
-fdfs:
-  web-server-url: 121.201.93.46:8888/
-  tracker-list[0]: 121.201.93.46:22122
-  so-timeout: 300000
-  connect-timeout: 60000
-  thumb-image:
-    width: 150
-    height: 150
+      static-locations: classpath:templates,file:${uploadPath}
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

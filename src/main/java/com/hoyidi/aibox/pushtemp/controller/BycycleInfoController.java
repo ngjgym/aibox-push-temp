@@ -5,11 +5,7 @@ import com.hoyidi.aibox.pushtemp.pojo.entity.BycycleInfoEntity;
 import com.hoyidi.aibox.pushtemp.service.BycycleInfoService;
 import com.hoyidi.aibox.pushtemp.utils.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,14 +20,14 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/bycycleInfoEntity")
+@RequestMapping("/bycycleInfo")
 public class BycycleInfoController {
 
     @Autowired
     private BycycleInfoService bycycleInfoService;
 
 
-    @PostMapping("/bycycleInfoAll")
+    @GetMapping("/bycycleInfoAll")
     public ResultMap bycycleInfoAll(){
         List<Map<String,Object>> bycycleInfo = bycycleInfoService.selBycycleInfoAll();
         if (bycycleInfo!=null){

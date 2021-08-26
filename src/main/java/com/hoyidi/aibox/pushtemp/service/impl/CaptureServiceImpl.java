@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 public class CaptureServiceImpl extends ServiceImpl<CaptureMapper, CaptureEntity> implements CaptureService {
 
     @Autowired
-    private FastDFSClient fastDFSClient;
+    private SaveImageUtils saveImageUtils;
 
     @Autowired
     private CaptureService captureService;
@@ -62,15 +62,8 @@ public class CaptureServiceImpl extends ServiceImpl<CaptureMapper, CaptureEntity
         JSONObject jsonObject = JSON.parseObject(json);
         String channelLocation = jsonObject.getString("channelLocation");
         log.info("推送数据设备" + channelLocation);
-        //根据channelLocation查询摄像机
-        //Camera camera = cameraMapper.selectOneByDeviceCode(channelLocation);
         JSONArray objects = jsonObject.getJSONArray("objects");
-        //Date snapTime = jsonObject.getDate("snapTime");
-        //上传整张画面
-//        String Url=System.getProperty("user.dir")+"/src/main/resources/templates/images/"+auto()+".jpg";
-//        file.transferTo(new File(Url));
-//        String imgUrl="./"+Url.substring(48);
-        String imgUrl = SaveImageUtils.saveImageToStatic(file);
+        String imgUrl = saveImageUtils.saveImageToStatic(file);
         for (int i = 0; i < objects.size(); i++) {
             //创建抓拍
             CaptureEntity capture = new CaptureEntity();
@@ -81,34 +74,11 @@ public class CaptureServiceImpl extends ServiceImpl<CaptureMapper, CaptureEntity
             JSONObject object = objects.getJSONObject(i);
             String chip = object.getString("chip");
             String carLicenceNumber = object.getString("carLicenceNumber");
-//            String listType = null;
-//            String alarmInfo = null;
-//            if (object.size() == 8) {
-//                alarmInfo = object.getJSONObject("alarmInfo").toJSONString();
-//            }
-//            if (alarmInfo != null) {
-//                listType = object.getJSONObject("alarmInfo").get("listType").toString();
-//            }
             //上传对象图像信息
-            String keyDiagramUrl = SaveImageUtils.saveImageToStatic(chip);
+            String keyDiagramUrl = saveImageUtils.saveImageToStatic(chip);
             capture.setKeyDiagram(keyDiagramUrl);
             capture.setPlate(carLicenceNumber);
             String type = object.getString("type");
-//            if (listType != null && listType.equals("黑名单")) {
-//                capture.setBlackWhiteListId(1);
-//            } else if (listType != null && listType.equals("白名单")) {
-//                capture.setBlackWhiteListId(2);
-//            }
-//            if (camera != null) {
-//                capture.setCameraId(camera.getId())
-//                        .setPlaceId(camera.getPlaceId())
-//                        .setRegionalCode(camera.getRegionalCode())
-//                        .setRegionalId(camera.getRegionalId())
-//                        .setLongitude(camera.getLongitude())
-//                        .setLatitude(camera.getLatitude())
-//                        .setDeviceCode(camera.getDeviceCode());
-//            }
-//            log.info(type);
             if (Constant.CaptureType.FACE_SLIM.equals(type)) {
                 //人脸类型
                 capture.setType(Constant.CaptureType.FACE);
@@ -131,8 +101,6 @@ public class CaptureServiceImpl extends ServiceImpl<CaptureMapper, CaptureEntity
                 facesInfo.setHairstyle(hairstyle);
                 facesInfo.setRace(race);
                 //拿到人脸特征值
-//                String featureBin = object.getString("featureBin");
-//                capture.setSignature(featureBin);
                 capture.setFacesInfo(facesInfo);
             } else if (Constant.CaptureType.VEHICLE_SLIM.equals(type)) {
                 //机动车
@@ -251,22 +219,11 @@ public class CaptureServiceImpl extends ServiceImpl<CaptureMapper, CaptureEntity
                 bycycleInfo.setTriType(triType);
                 capture.setBycycleInfo(bycycleInfo);
             }
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("type", 1);
-//            map.put("data", capture);
             captureService.save(capture);
             log.info("成功");
             saveCapture(capture);
-            //sendSocketMsg(capture);
-            //预警信息
-            //controlAlarmRecordService.controlAlarm(capture, camera);
-            //昼伏夜出
-//            configAlarmRecordService.configNocturnalAlarm(capture,camera);
         }
     }
-//    private void sendSocketMsg(CaptureEntity capture){
-//        socketService.pushMsgToAll(JSONObject.toJSONString(capture));
-//    }
 
     private void saveCapture(CaptureEntity capture) {
         Integer id = capture.getId();

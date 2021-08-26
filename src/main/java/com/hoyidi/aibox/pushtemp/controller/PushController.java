@@ -22,8 +22,9 @@ public class PushController {
     @PostMapping("/pushData")
     @ResponseBody
     public String pushData(@RequestParam("json_info") String json, @RequestParam("image") MultipartFile file) throws IOException {
+
+//        log.info(json);
         captureService.pushData(json, file);
-        log.info(json);
         return "ok";
     }
 
